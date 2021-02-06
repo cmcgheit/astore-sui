@@ -6,23 +6,24 @@
 import SwiftUI
 
 struct GamesTabView: View {
-  @State var isAccountViewPresented = false
-  
-  var body: some View {
-    NavigationView {
-      ScrollView {
-        
-        
-      }
-      .navigationBarTitle("Games")
-      .navigationBarItems(trailing: AccountButton(isAccountViewPresented: $isAccountViewPresented))
+    
+    
+    @State var isAccountViewPresented = false
+    
+    var body: some View {
+        NavigationView {
+            ScrollView {
+                
+            }
+            .navigationBarTitle("Games")
+            .navigationBarItems(trailing: AccountButton(isAccountViewPresented: $isAccountViewPresented))
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
-    .navigationViewStyle(StackNavigationViewStyle())
-  }
     
     fileprivate func fetchGamesData() {
         print("Fetching new JSON DATA somehow...")
-        Service.shared.fetchGames { (appGroup, err) in
+        Service.shared.fetchTopGames { (appGroup, err) in
             if let err = err {
                 print("Failed to fetch games:", err)
                 return
