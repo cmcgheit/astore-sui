@@ -5,8 +5,9 @@
 import SwiftUI
 
 class DetailViewModel: ObservableObject {
-
-    @Published var selectedItem = FeedResult(name: "", artistName: "", artworkUrl100: "")
+    // handles selection of item from card view to detail
+    
+    @Published var selectedItem = FeedResult(name: "", artworkUrl100: "")
     
     @Published var show = false
 }

@@ -5,20 +5,19 @@
 import SwiftUI
 
 struct DetailView: View {
-    // Getting Current Selected Item...
-    @ObservedObject var detail : DetailViewModel
+    @ObservedObject var detail: DetailViewModel
     var animation: Namespace.ID
     
-    @State var scale : CGFloat = 1
+    @State var scale: CGFloat = 1
     
     var body: some View {
 
-        ScrollView{
+        ScrollView {
             
-            VStack{
+            VStack {
                 
                 // Updated Code For Avoiding Top Scroll
-                GeometryReader{reader in
+                GeometryReader { reader in
                     
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         
@@ -30,7 +29,7 @@ struct DetailView: View {
 
                         HStack{
                             
-                            Text(detail.selectedItem.artistName)
+                            Text(detail.selectedItem.name)
                                 .font(.title)
                                 .fontWeight(.heavy)
                                 .foregroundColor(.white)
@@ -38,7 +37,7 @@ struct DetailView: View {
                             Spacer(minLength: 0)
                             
                             Button(action: {
-                                withAnimation(.spring()){
+                                withAnimation(.spring()) {
 
                                     detail.show.toggle()
                                 }
@@ -61,7 +60,7 @@ struct DetailView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
                 
-                HStack{
+                HStack {
                     
                     Image(detail.selectedItem.artworkUrl100)
                         .resizable()
@@ -71,7 +70,7 @@ struct DetailView: View {
                     
                     VStack(alignment: .leading, spacing: 6) {
                         
-                        Text(detail.selectedItem.artistName)
+                        Text(detail.selectedItem.name)
                             .fontWeight(.bold)
                         
                         Text(detail.selectedItem.name)
@@ -127,7 +126,7 @@ struct DetailView: View {
         .ignoresSafeArea(.all, edges: .top)
     }
     
-    func onChanged(value: DragGesture.Value){
+    func onChanged(value: DragGesture.Value) {
         
         // calculating scale value by total height...
         
@@ -142,12 +141,12 @@ struct DetailView: View {
         }
     }
     
-    func onEnded(value: DragGesture.Value){
+    func onEnded(value: DragGesture.Value) {
         
-        withAnimation(.spring()){
+        withAnimation(.spring()) {
             
             // closing detail view when scale is less than 0.9...
-            if scale < 0.9{
+            if scale < 0.9 {
                 detail.show.toggle()
             }
             scale = 1

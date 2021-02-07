@@ -14,8 +14,8 @@ struct Feed: Decodable {
     let results: [FeedResult]
 }
 
-struct FeedResult: Decodable {
+struct FeedResult: Decodable, Identifiable {
     var id = UUID().uuidString
-    let name, artistName, artworkUrl100: String
+    let name, artworkUrl100: String
 }
 

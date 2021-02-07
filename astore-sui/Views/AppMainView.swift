@@ -6,15 +6,18 @@
 import SwiftUI
 
 struct AppMainView: View {
+    @Namespace var animation
+    @StateObject var detailObject = DetailViewModel()
     
     var body: some View {
         TabView {
-            TodayTabView()
+            TodayTabView(animation: animation)
+                .environmentObject(detailObject)
                 .tabItem {
                     Image(systemName: "note")
                     Text("Today")
                 }
-
+            
             GamesTabView()
                 .tabItem {
                     Image(systemName: "keyboard")
@@ -38,18 +41,11 @@ struct AppMainView: View {
                     Image(systemName: "magnifyingglass")
                     Text("Search")
                 }
-        }
-    }
-    
-    fileprivate func fetchAppsData() {
-        print("Fetching new JSON DATA somehow...")
-        Service.shared.fetchAppsWeLove { (appGroup, err) in
-            if let err = err {
-                print("Failed to fetch games:", err)
-                return
-            }
+        }.opacity(detailObject.show ? 0 : 1)
+        
+        if detailObject.show {
             
-            print(appGroup?.feed.results)
+            DetailView(detail: detailObject, animation: animation)
         }
     }
 }

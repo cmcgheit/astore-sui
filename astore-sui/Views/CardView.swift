@@ -6,32 +6,22 @@ import SwiftUI
 
 struct CardView: View {
     var cardItem: FeedResult
-    // getting Current Scheme Color
+    
     @Environment(\.colorScheme) var color
     var animation: Namespace.ID
     
     var body: some View {
         
-        VStack{
-            
-            Image(cardItem.artworkUrl100)
-                .resizable()
-                .aspectRatio(contentMode: .fill)
+        VStack {
+        
+            RemoteImage(url: cardItem.artworkUrl100)
+                .aspectRatio(contentMode: .fit)
                 .matchedGeometryEffect(id: "image" + cardItem.id, in: animation)
                 .frame(width: UIScreen.main.bounds.width - 30)
             
-            HStack{
-                
-//                Image(cardItem.)
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: 65, height: 65)
-//                    .cornerRadius(15)
-                
+            HStack {
+                                
                 VStack(alignment: .leading, spacing: 6) {
-                    
-                    Text(cardItem.artistName)
-                        .fontWeight(.bold)
                     
                     Text(cardItem.name)
                         .font(.caption)
@@ -40,7 +30,7 @@ struct CardView: View {
                 
                 Spacer(minLength: 0)
                 
-                VStack{
+                VStack {
                     
                     Button(action: {}) {
                         
@@ -63,5 +53,17 @@ struct CardView: View {
         .frame(height: 320)
         .background(color == .dark ? Color.black : Color.white)
         .cornerRadius(15)
+    }
+    
+    fileprivate func fetchTopFreeAppsData() {
+        Service.shared.fetchTopFreeApps { (appGroup, err) in
+        
+            if let err = err {
+                print("Failed to fetch  top free apps:", err)
+                return
+            }
+            
+            print(appGroup?.feed.results)
+        }
     }
 }
