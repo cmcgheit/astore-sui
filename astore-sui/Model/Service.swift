@@ -8,8 +8,8 @@ import Foundation
 class Service {
     
     static let shared = Service()
+    @Published var appArray = [FeedResult]()
     
-    // generics better here right :)
     // https://rss.itunes.apple.com/en-us
     
     func searchApps(searchTerm: String, completion: @escaping ([Result], Error?) -> ()) {
@@ -54,6 +54,7 @@ class Service {
                 
                 appGroup.feed.results.forEach({print($0.name)})
                 completion(appGroup, nil)
+                self.appArray = appGroup.feed.results
             } catch {
                 completion(nil, error)
             }

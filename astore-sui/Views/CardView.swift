@@ -18,10 +18,15 @@ struct CardView: View {
                 .aspectRatio(contentMode: .fit)
                 .matchedGeometryEffect(id: "image" + cardItem.id, in: animation)
                 .frame(width: UIScreen.main.bounds.width - 30)
-            
+                
             HStack {
                                 
                 VStack(alignment: .leading, spacing: 6) {
+                    
+                    RemoteImage(url: cardItem.artworkUrl100)
+                        .frame(width: 65, height: 65)
+                        .cornerRadius(15)
+                        
                     
                     Text(cardItem.name)
                         .font(.caption)
