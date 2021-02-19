@@ -11,43 +11,45 @@ struct TodayTabView: View {
     
     var body: some View {
         ScrollView {
-            //            ForEach(Range(0...4)) { index in
-            //                self.setupCurrentDate(by: index)
-            ForEach(exampleItems){ item in
-
-                if detail.show {
-                    
-                    Rectangle()
-                        .fill(Color.clear)
-                        .frame(height: 320)
-                        .padding(.horizontal)
-                        .padding(.top)
-                }
-                else {
-                    
-                    CardView(cardItem: item, animation: animation)
-                        .padding(.horizontal)
-                        .padding(.top)
-                        .onTapGesture {
-                            
-                            withAnimation(.spring()) {
-                                
-                                detail.selectedItem = item
-                                detail.show.toggle()
-                            }
-                        }
-                }
+            ForEach(Range(0...4)) { index in
+                self.setupCurrentDate(by: index)
                 
+                ForEach(exampleItems){ item in
+                    if detail.show {
+                        Rectangle()
+                            .fill(Color.clear)
+                            .frame(height: 320)
+                            .padding(.horizontal)
+                            .padding(.top)
+                    }
+                    else {
+                        
+                        CardView(cardItem: item, animation: animation)
+                            .padding(.horizontal)
+                            .padding(.top)
+                            .onTapGesture {
+                                
+                                withAnimation(.spring()) {
+                                    
+                                    detail.selectedItem = item
+                                    detail.show.toggle()
+                                }
+                            }
+                    }
+                    
+                    
+                }
             }
+            
+            .padding(.bottom)
         }
-        .padding(.bottom)
+    }
+    
+    func setupCurrentDate(by index: Int) -> AnyView {
+        let date = Calendar.current.date(byAdding: .day, value: index, to: Date())
+        return index == 0 ? AnyView(NavigationViewHeaderWithImageBlock(date: date!)) : AnyView(NavigationViewHeaderBlock(date: date!))
     }
 }
-
-  func setupCurrentDate(by index: Int) -> AnyView {
-    let date = Calendar.current.date(byAdding: .day, value: index, to: Date())
-    return index == 0 ? AnyView(NavigationViewHeaderWithImageBlock(date: date!)) : AnyView(NavigationViewHeaderBlock(date: date!))
-  }
 
 
 //struct TodayTabView_Previews: PreviewProvider {
