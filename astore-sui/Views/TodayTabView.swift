@@ -36,13 +36,11 @@ struct TodayTabView: View {
                                 }
                             }
                     }
-                    
-                    
                 }
             }
-            
             .padding(.bottom)
         }
+        .background(Color.primary.opacity(0.06).ignoresSafeArea()) // for cards to be defined
     }
     
     func setupCurrentDate(by index: Int) -> AnyView {

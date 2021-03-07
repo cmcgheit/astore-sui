@@ -21,9 +21,7 @@ struct DetailView: View {
                     
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         
-                        Image(detail.selectedItem.artworkUrl100)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
+                        RemoteImage(url: detail.selectedItem.artworkUrl100)
                             .matchedGeometryEffect(id: "image" + detail.selectedItem.id, in: animation)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
 
@@ -54,7 +52,7 @@ struct DetailView: View {
                         // since we ignored top area...
                         .padding(.top,UIApplication.shared.windows.first!.safeAreaInsets.top + 10)
                     }
-                        .offset(y: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0)
+//                        .offset(y: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0)
                     // Gesture For Closing Detail View....
                     .gesture(DragGesture(minimumDistance: 0).onChanged(onChanged(value:)).onEnded(onEnded(value:)))
                 }
@@ -62,9 +60,7 @@ struct DetailView: View {
                 
                 HStack {
                     
-                    Image(detail.selectedItem.artworkUrl100)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                    RemoteImage(url: detail.selectedItem.artworkUrl100)
                         .frame(width: 65, height: 65)
                         .cornerRadius(15)
                     
@@ -72,10 +68,6 @@ struct DetailView: View {
                         
                         Text(detail.selectedItem.name)
                             .fontWeight(.bold)
-                        
-                        Text(detail.selectedItem.name)
-                            .font(.caption)
-                            .foregroundColor(.gray)
                     }
                     
                     Spacer(minLength: 0)
@@ -135,7 +127,7 @@ struct DetailView: View {
         // if scale is 0.1 means the actual scale will be 1- 0.1 => 0.9
         // limiting scale value...
         
-        if 1 - scale > 0.75{
+        if 1 - scale > 0.75 {
         
             self.scale = 1 - scale
         }
