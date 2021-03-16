@@ -14,16 +14,16 @@ struct CardView: View {
         
         VStack {
         
-            RemoteImage(url: cardItem.artworkUrl100)
+            ImageView(withURL: cardItem.artworkUrl100)
                 .aspectRatio(contentMode: .fit)
-                .matchedGeometryEffect(id: "image" + cardItem.id, in: animation)
+                .matchedGeometryEffect(id: "image" + cardItem.id, in: animation, isSource: false)
                 .frame(width: UIScreen.main.bounds.width - 30)
                 
             HStack {
                                 
                 VStack(alignment: .leading, spacing: 6) {
                     
-                    RemoteImage(url: cardItem.artworkUrl100)
+                    ImageView(withURL: cardItem.artworkUrl100)
                         .frame(width: 65, height: 65)
                         .cornerRadius(15)
                         
@@ -52,7 +52,7 @@ struct CardView: View {
                         .foregroundColor(.gray)
                 }
             }
-            .matchedGeometryEffect(id: "content" + cardItem.id, in: animation)
+            .matchedGeometryEffect(id: "content" + cardItem.id, in: animation, isSource: false)
             .padding()
         }
         .frame(height: 320)

@@ -7,7 +7,6 @@ import SwiftUI
 struct DetailView: View {
     @ObservedObject var detail: DetailViewModel
     var animation: Namespace.ID
-    
     @State var scale: CGFloat = 1
     
     var body: some View {
@@ -16,16 +15,16 @@ struct DetailView: View {
             
             VStack {
                 
-                // Updated Code For Avoiding Top Scroll
                 GeometryReader { reader in
                     
                     ZStack(alignment: Alignment(horizontal: .center, vertical: .top)) {
                         
-                        RemoteImage(url: detail.selectedItem.artworkUrl100)
+                        ImageView(withURL: detail.selectedItem.artworkUrl100)
+                            .aspectRatio(contentMode: .fill)
                             .matchedGeometryEffect(id: "image" + detail.selectedItem.id, in: animation)
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
 
-                        HStack{
+                        HStack {
                             
                             Text(detail.selectedItem.name)
                                 .font(.title)
@@ -50,17 +49,17 @@ struct DetailView: View {
                         }
                         .padding(.horizontal)
                         // since we ignored top area...
-                        .padding(.top,UIApplication.shared.windows.first!.safeAreaInsets.top + 10)
+                        .padding(.top, UIApplication.shared.windows.first!.safeAreaInsets.top + 10)
                     }
 //                        .offset(y: (reader.frame(in: .global).minY > 0 && scale == 1) ? -reader.frame(in: .global).minY : 0)
                     // Gesture For Closing Detail View....
                     .gesture(DragGesture(minimumDistance: 0).onChanged(onChanged(value:)).onEnded(onEnded(value:)))
                 }
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.5)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2.0)
                 
                 HStack {
                     
-                    RemoteImage(url: detail.selectedItem.artworkUrl100)
+                    ImageView(withURL: detail.selectedItem.artworkUrl100)
                         .frame(width: 65, height: 65)
                         .cornerRadius(15)
                     
