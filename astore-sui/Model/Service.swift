@@ -52,9 +52,13 @@ class Service {
             do {
                 let appGroup = try JSONDecoder().decode(AppGroup.self, from: data!)
                 
-                appGroup.feed.results.forEach({print($0.name)})
+                appGroup.feed.results.forEach({print($0)})
                 completion(appGroup, nil)
-                self.appArray = appGroup.feed.results
+                
+                DispatchQueue.main.async {
+                    self.appArray = appGroup.feed.results
+                }
+                
             } catch {
                 completion(nil, error)
             }
@@ -74,8 +78,12 @@ class Service {
             do {
                 let appGroup = try JSONDecoder().decode(AppGroup.self, from: data!)
                 
-                appGroup.feed.results.forEach({print($0.name)})
+                appGroup.feed.results.forEach({print($0)})
                 completion(appGroup, nil)
+                
+                DispatchQueue.main.async {
+                    self.appArray = appGroup.feed.results
+                }
             } catch {
                 completion(nil, error)
             }
@@ -95,8 +103,11 @@ class Service {
             do {
                 let appGroup = try JSONDecoder().decode(AppGroup.self, from: data!)
                 
-                appGroup.feed.results.forEach({print($0.name)})
+                appGroup.feed.results.forEach({print($0)})
                 completion(appGroup, nil)
+                DispatchQueue.main.async {
+                    self.appArray = appGroup.feed.results
+                }
             } catch {
                 completion(nil, error)
             }
@@ -115,8 +126,11 @@ class Service {
             
             do {
                 let appGroup = try JSONDecoder().decode(AppGroup.self, from: data!)
-                appGroup.feed.results.forEach({print($0.name)})
+                appGroup.feed.results.forEach({print($0)})
                 completion(appGroup, nil)
+                DispatchQueue.main.async {
+                    self.appArray = appGroup.feed.results
+                }
             } catch {
                 completion(nil, error)
             }

@@ -8,11 +8,17 @@ import SwiftUI
 struct GamesTabView: View {
     
     @State var isAccountViewPresented = false
+    @State private var topGamesFeed = [FeedResult]()
     
     var body: some View {
         NavigationView {
             ScrollView {
-                
+                ForEach(topGamesFeed, id: \.id) { games in
+                    
+//                    CardView(cardItem: games, animation: animation)
+//                        .padding(.horizontal)
+//                        .padding(.top)
+                }
             }.onAppear(perform: {
                 fetchGamesData()
             })
@@ -28,8 +34,7 @@ struct GamesTabView: View {
                 print("Failed to fetch games:", err)
                 return
             }
-            
-            print(appGroup?.feed.results)
+            topGamesFeed = Service.shared.appArray
         }
     }
 }
